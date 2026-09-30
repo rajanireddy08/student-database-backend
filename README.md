@@ -38,13 +38,16 @@ student-database-backend/
 │
 ├── app/
 │   ├── routers/
+│   │   ├── __init__.py
 │   │   ├── chatbot.py
 │   │   └── students.py
 │   │
 │   ├── services/
+│   │   ├── __init__.py
 │   │   ├── chatbot_service.py
 │   │   └── vector_service.py
 │   │
+│   ├── __init__.py
 │   ├── database.py
 │   ├── main.py
 │   ├── models.py
@@ -55,28 +58,48 @@ student-database-backend/
 ├── .gitignore
 ├── requirements.txt
 └── README.md
-Get All Students
+
+## Student APIs
+
+### Create Student
+
+POST /api/students/
+
+Creates a new student in the database.
+
+### Get All Students
+
 GET /api/students/
 
-Get Student
+Returns all students stored in the database.
+
+### Get Student
+
 GET /api/students/{student_id}
 
-Update Student
+Returns the details of a specific student using the student ID.
+
+### Update Student
+
 PUT /api/students/{student_id}
 
-Delete Student
+Updates the details of an existing student.
+
+### Delete Student
+
 DELETE /api/students/{student_id}
 
-1.AI Chatbot
+Deletes a student from the database.
+
 ## AI Chatbot
 
-The chatbot allows users to ask questions about student information.
+The system includes an AI-powered chatbot that can answer questions about student information.
 
 ### Endpoint
 
 POST /api/chatbot/
 
-### Example
+### Example Request
 
 {
   "question": "Which students are in the CSE department?"
@@ -98,7 +121,6 @@ Gemini
       ↓
 AI Generated Answer
 
-2. Vector Database
 ## Vector Database
 
 ChromaDB is used as the vector database for student-information retrieval.
@@ -108,20 +130,20 @@ It provides:
 - Local storage
 - Similarity-based search
 - Simple Python integration
-- Suitable integration with the chatbot workflow
+- Integration with the chatbot workflow
 
-The vector database is used for retrieval rather than blindly sending the complete database to the AI model.
+The vector database helps retrieve relevant student information before generating an AI response.
 
-3. Environment Variables
 ## Environment Variables
 
-Create a `.env` file in the project root:
+Create a `.env` file in the project root.
+
+Add your Gemini API key:
 
 GEMINI_API_KEY=your_gemini_api_key
 
 Never commit the `.env` file to GitHub.
 
-4. Installation
 ## Installation
 
 Clone the repository:
@@ -136,60 +158,57 @@ Create a virtual environment:
 
 python -m venv venv
 
-Activate it on Windows:
+Activate the virtual environment on Windows:
 
 venv\Scripts\activate
 
-Install dependencies:
+Install the required dependencies:
 
 pip install -r requirements.txt
 
-5. Run Locally
 ## Run Locally
 
 Start the FastAPI server:
 
 uvicorn app.main:app --reload
 
-Open Swagger:
+The application will run at:
+
+http://127.0.0.1:8000
+
+## API Documentation
+
+FastAPI automatically provides interactive Swagger documentation.
+
+Open:
 
 http://127.0.0.1:8000/docs
 
-6. Run with Docker
+Swagger can be used to test all Student APIs and the AI Chatbot API.
+
 ## Run with Docker
 
 Build the Docker image:
 
 docker build -t student-database-backend .
 
-Run the container:
+Run the Docker container:
 
 docker run --name student-backend -p 8000:8000 --env-file .env student-database-backend
 
-Open:
+Open the Swagger documentation:
 
 http://127.0.0.1:8000/docs
 
-7. API Documentation
-## API Documentation
-
-FastAPI automatically provides interactive Swagger documentation at:
-
-/docs
-
-It can be used to test all Student and AI Chatbot APIs.
-
-8. Security
 ## Security
 
-- API keys are stored in environment variables.
-- `.env` is excluded from Git.
+- API keys are stored using environment variables.
+- The `.env` file is excluded from Git.
 - Database files are excluded from Git.
 - ChromaDB files are excluded from Git.
 - The chatbot is instructed not to invent student information.
 - Only necessary student information is used for AI retrieval.
 
-9. Testing
 ## Testing
 
 The following functionality has been tested:
@@ -203,9 +222,3 @@ The following functionality has been tested:
 - AI chatbot
 - Swagger API documentation
 - Dockerized FastAPI application
-
-## Author
-
-**Rajani N**
-
-Student Database Management System – Backend
