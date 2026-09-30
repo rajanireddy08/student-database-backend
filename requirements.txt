@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+pydantic-settings
+python-dotenv
+email-validator
+google-genai
+langgraph
+langchain-core
+chromadb
